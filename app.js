@@ -51,9 +51,7 @@ app.use(morgan('dev')); 					// log every request to the console
 app.use(bodyParser()); 						// pull information from html in POST
 app.use(methodOverride()); 					// simulate DELETE and PUT
 app.use(cookieParser()) // required before session.
-//app.use(session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true }}));
 app.use(session({ secret: 'keyboard cat' }));
-//app.use(session({ key: 'express.sid', secret: 'keyboard cat', store: SessionStore }))
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
@@ -115,10 +113,8 @@ app.listen(3000);
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { 
-      console.log("ensureAuthenticated OOKAY");
       return next(); 
   }
-  console.log("ensureAuthenticated NOT OK");
-    res.redirect('/login')
+  res.redirect('/login')
 }
 
