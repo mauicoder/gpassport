@@ -62,6 +62,12 @@ app.use(passport.session());
 
 
 app.get('/', function(req, res){
+  console.log("IsAuth "+req.isAuthenticated());
+  if(req.isAuthenticated()){
+    console.log("Logged In");
+  } else {
+    console.log("Logged Out");
+  }
   res.render('index', { user: req.user });
 });
 
@@ -89,11 +95,6 @@ app.get('/auth/google',
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-//app.get('/auth/google/return', 
-//  passport.authenticate('google', { failureRedirect: '/login' }),
-//  function(req, res) {
-//    res.redirect('/account');
-//  });
 app.get('/auth/google/return', 
   passport.authenticate('google', { successRedirect: '/account',
                                     failureRedirect: '/login' }));
